@@ -166,12 +166,18 @@
       <h2>命令行提交，自动评测上榜</h2>
       <p>提交唯一通道是命令行 <code>submit.py</code>：交<b>推理代码 + 策略权重</b>，带<b>队伍令牌</b>。分数由主办方评测算出。<b>提交次数不限</b>，榜单取该队历史最高分。</p>
     </div>
-    <div class="code"><span class="c"># 提交：推理代码 + 权重，带队伍令牌</span>
-python submit.py <span class="a">--competition</span> humanoid <span class="a">--task</span> ATEC-TaskF-OliEdu \
+
+    <p style="margin-top:0.2rem;color:var(--muted);font-size:0.95rem"><b style="color:var(--text)">准备工作</b>（一次性）：</p>
+    <div class="code"><span class="c"># 1) 从官方 Starter 仓库获取 submit.py；2) 安装依赖（仅需 requests）</span>
+pip install requests
+<span class="c"># &lt;网关仓库&gt; 与 &lt;队伍令牌&gt; 由主办方公告 / 私发给各队；&lt;队伍标识&gt; 用你的队名（英文/数字/连字符）</span></div>
+
+    <div class="code"><span class="c"># 提交：推理代码 + 权重，带队伍令牌（若你的环境没有 python，请用 python3）</span>
+python3 submit.py <span class="a">--competition</span> humanoid <span class="a">--task</span> ATEC-TaskF-OliEdu \
   <span class="a">--repo</span> &lt;网关仓库&gt; <span class="a">--team</span> &lt;队伍标识&gt; <span class="a">--token</span> &lt;队伍令牌&gt; \
   <span class="a">--ckpt-file</span> ./policy.pt <span class="a">--code-dir</span> ./solution</div>
     <div class="code"><span class="c"># 查本队各次提交的状态与分数</span>
-python submit.py <span class="a">--status</span> <span class="a">--repo</span> &lt;网关仓库&gt; <span class="a">--team</span> &lt;队伍标识&gt; <span class="a">--token</span> &lt;队伍令牌&gt;</div>
+python3 submit.py <span class="a">--status</span> <span class="a">--repo</span> &lt;网关仓库&gt; <span class="a">--team</span> &lt;队伍标识&gt; <span class="a">--token</span> &lt;队伍令牌&gt;</div>
     <p style="margin-top:1.4rem;color:var(--muted);font-size:0.95rem">
       流程：① 实现推理代码 + 训练权重；② <code>submit.py</code> 打包上传、网关校验令牌；
       ③ 主办方评测自动跑一局并算分；④ 总分 + 明细 commit 到榜单 —— <b style="color:var(--text)">Dev 榜实时、Final 截止冻结</b>。
