@@ -108,7 +108,7 @@
         <tr><td class="lvl" style="width:8rem">赛制</td><td><b>3 次尝试，取最高分</b>为最终分数。<b>确定性评测</b>：固定赛道 + 固定箱初始位 + 无域随机化 + 无观测噪声 + 固定摩擦。</td></tr>
         <tr><td class="lvl">任务流程</td><td>① 起点感应线触发计时；② 机器人自主沿赛道向前推进，<b>任意选择绕行 / 跨越</b>的方式通过；③ 通过终点感应线或单次时长达 <b>180 s（3 min）</b>本局终止；④ <b>跌倒不终止</b>——可自起恢复后继续。</td></tr>
         <tr><td class="lvl">避障约束</td><td>避障方案不可遥控人为控制，只能 <b>Goal Tracking</b> 或 <b>Vel Tracking</b>。</td></tr>
-        <tr><td class="lvl">提交</td><td>提交物 = <b>推理代码 + 策略权重</b>，命令行提交、自动评测上榜；每队每日（UTC+8）<b>≤ 2 次</b>，超额拒绝。</td></tr>
+        <tr><td class="lvl">提交</td><td>提交物 = <b>推理代码 + 策略权重</b>，命令行提交、自动评测上榜；<b>提交次数不限</b>，榜单取该队历史最高分。</td></tr>
       </tbody>
     </table>
   </div>
@@ -164,7 +164,7 @@
     <div class="sec-head">
       <span class="sec-num">05 / 提交方式</span>
       <h2>命令行提交，自动评测上榜</h2>
-      <p>提交唯一通道是命令行 <code>submit.py</code>：交<b>推理代码 + 策略权重</b>，带<b>队伍令牌</b>。分数由主办方评测算出。每队每日（UTC+8）≤ 2 次。</p>
+      <p>提交唯一通道是命令行 <code>submit.py</code>：交<b>推理代码 + 策略权重</b>，带<b>队伍令牌</b>。分数由主办方评测算出。<b>提交次数不限</b>，榜单取该队历史最高分。</p>
     </div>
     <div class="code"><span class="c"># 提交：推理代码 + 权重，带队伍令牌</span>
 python submit.py <span class="a">--competition</span> humanoid <span class="a">--task</span> ATEC-TaskF-OliEdu \
@@ -173,7 +173,7 @@ python submit.py <span class="a">--competition</span> humanoid <span class="a">-
     <div class="code"><span class="c"># 查本队提交状态 / 分数 / 当日剩余次数</span>
 python submit.py <span class="a">--status</span> <span class="a">--repo</span> &lt;网关仓库&gt; <span class="a">--team</span> &lt;队伍标识&gt; <span class="a">--token</span> &lt;队伍令牌&gt;</div>
     <p style="margin-top:1.4rem;color:var(--muted);font-size:0.95rem">
-      流程：① 实现推理代码 + 训练权重；② <code>submit.py</code> 打包上传、网关校验令牌与每日次数；
+      流程：① 实现推理代码 + 训练权重；② <code>submit.py</code> 打包上传、网关校验令牌；
       ③ 主办方评测自动跑一局并算分；④ 总分 + 明细 commit 到榜单 —— <b style="color:var(--text)">Dev 榜实时、Final 截止冻结</b>。
     </p>
   </div>
