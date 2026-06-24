@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FINAL · Humanoid Locomotion</title>
+<link rel="stylesheet" href="./style.css">
+<script src="./config.js"></script>
+<script src="./board.js" defer></script>
+</head>
+<body data-board="final">
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="./index.html" class="brand" style="text-decoration:none">Humanoid <span class="accent">Locomotion</span></a>
+    <span class="nav-links">
+      <a href="./index.html#overview">概览</a>
+      <a href="./index.html#arena">赛题</a>
+      <a href="./index.html#rules">规则</a>
+      <a href="./index.html#scoring">评分</a>
+      <a href="./index.html#submit">提交</a>
+      <a href="./index.html#board">DEV 榜</a>
+    </span>
+  </div>
+</nav>
+
+<section style="border-top:none;padding-top:3.5rem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">FINAL / 最终榜</span>
+      <h2>Final 排行榜</h2>
+      <p>截止后由当时的 dev 榜冻结为最终成绩。截止前显示倒计时。</p>
+    </div>
+    <div class="board-head">
+      <span class="upd" id="updated"></span>
+      <span id="countdown" style="font-size:1.05rem"></span>
+      <a class="to-final btn" href="./index.html#board">← 返回 DEV 榜</a>
+    </div>
+    <div id="locked" class="locked" hidden>
+      <span class="big">FINAL</span>
+      赛末公布
+    </div>
+    <table id="board-table" class="board board-strip" hidden>
+      <thead>
+        <tr class="grp">
+          <th class="c-rank">#</th>
+          <th class="c-team">队伍</th>
+          <th class="c-gate">通过方式</th>
+          <th class="c-gate">跨越奖励 <span class="th-sub">最高 +25</span></th>
+          <th class="c-t3">总分 <span class="th-sub">满分 100 · 到达 · 罚分</span></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p id="empty" hidden>暂无成绩</p>
+  </div>
+</section>
+
+</body>
+</html>
