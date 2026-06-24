@@ -108,7 +108,7 @@
         <tr><td class="lvl" style="width:8rem">赛制</td><td><b>3 次尝试，取最高分</b>为最终分数。<b>确定性评测</b>：固定赛道 + 固定箱初始位 + 无域随机化 + 无观测噪声 + 固定摩擦。</td></tr>
         <tr><td class="lvl">任务流程</td><td>① 起点感应线触发计时；② 机器人自主沿赛道向前推进，<b>任意选择绕行 / 跨越</b>的方式通过；③ 通过终点感应线或单次时长达 <b>180 s（3 min）</b>本局终止；④ <b>跌倒不终止</b>——可自起恢复后继续。</td></tr>
         <tr><td class="lvl">避障约束</td><td>避障方案不可遥控人为控制，只能 <b>Goal Tracking</b> 或 <b>Vel Tracking</b>。</td></tr>
-        <tr><td class="lvl">提交</td><td>提交物 = <b>推理代码 + 策略权重</b>，命令行提交、自动评测上榜；<b>提交次数不限</b>，榜单取该队历史最高分。</td></tr>
+        <tr><td class="lvl">提交</td><td>提交物 = <b>推理代码 + 策略权重</b>，命令行提交、自动评测上榜；每队<b>整个比赛共 3 次</b>提交机会，<b>取最高分</b>为最终成绩。</td></tr>
       </tbody>
     </table>
   </div>
@@ -164,7 +164,7 @@
     <div class="sec-head">
       <span class="sec-num">05 / 提交方式</span>
       <h2>命令行提交，自动评测上榜</h2>
-      <p>提交唯一通道是命令行 <code>submit.py</code>：交<b>推理代码 + 策略权重</b>，带<b>队伍令牌</b>。分数由主办方评测算出。<b>提交次数不限</b>，榜单取该队历史最高分。</p>
+      <p>提交唯一通道是命令行 <code>submit.py</code>：交<b>推理代码 + 策略权重</b>，带<b>队伍令牌</b>。分数由主办方评测算出。每队<b>整个比赛共 3 次</b>提交机会，<b>取最高分</b>为最终成绩。</p>
     </div>
 
     <p style="margin-top:0.2rem;color:var(--muted);font-size:0.95rem"><b style="color:var(--text)">准备工作</b>：下载 <code>submit.py</code>（<b>纯 Python 3 标准库，无需 pip install 任何依赖</b>）。<code>&lt;网关仓库&gt;</code> 与 <code>&lt;队伍令牌&gt;</code> 由主办方公告 / 私发给各队；<code>&lt;队伍标识&gt;</code> 用你的队名（英文/数字/连字符）。</p>
