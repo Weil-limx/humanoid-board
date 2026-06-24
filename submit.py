@@ -33,6 +33,10 @@ GITHUB_API = "https://api.github.com"
 MAX_CKPT_BYTES = 500 * 1024 * 1024  # 500 MB
 CLI_VERSION = "1.0.0"
 
+# 每赛题总提交次数上限（None=不限）。与网关 validate_submission.py 的 LIMITS 保持一致；
+# 仅用于在 CLI 侧友好提示"剩余次数"，真正的强制在网关。
+TOTAL_LIMITS = {"tron": None, "humanoid": 3}
+
 
 # ----------------------------- 纯工具函数（可独立单测，无网络） -----------------------------
 def sha256_bytes(data: bytes) -> str:
@@ -137,6 +141,46 @@ class GatewayClient:
 
 
 # ----------------------------- 命令实现 -----------------------------
+def _used_count(gw, team) -> int:
+    """数该队已占额度的提交数（rejected 不占）。用于提示剩余次数。"""
+    entries = gw.list_dir(f"submissions/{team}")
+    n = 0
+    for e in entries:
+        if e.get("type") != "dir":
+            continue
+        st = gw.get_json(f"submissions/{team}/{e['name']}/status.json")
+        if not st or st.get("status") != "rejected":
+            n += 1  # 无 status.json（刚提交未校验）也算占用
+    return n
+
+
+def _print_remaining(gw, args) -> None:
+    """对有总次数上限的赛题（如 humanoid），打印剩余提交次数。"""
+    limit = TOTAL_LIMITS.get(args.competition)
+    if limit is None:
+        return
+    try:
+        used = _used_count(gw, args.team)
+    except Exception:  # noqa: BLE001 — 提示功能不应让提交流程失败
+        return
+    remaining = max(0, limit - used)
+    if remaining > 0:
+        print(f"  提交次数：已用 {used}/{limit}，剩余 {remaining} 次")
+    else:
+        print(f"  提交次数：已用 {used}/{limit}，已用完（后续提交将被网关拒绝）")
+
+
+def _wait_gateway_decision(gw, team, sub_id, *, attempts=15, interval=2.0):
+    """提交后轮询网关回写的 status.json，返回最终 status dict（含 status/error）。
+    网关 Actions 异步裁决（通常数秒）；超时仍未回写则返回 None（视为已入队、待裁决）。"""
+    for _ in range(attempts):
+        st = gw.get_json(f"submissions/{team}/{sub_id}/status.json")
+        if st and st.get("status") in ("queued", "rejected", "running", "done", "failed"):
+            return st
+        time.sleep(interval)
+    return None
+
+
 def do_submit(args) -> int:
     if not os.path.isfile(args.ckpt_file):
         print(f"错误：权重文件不存在：{args.ckpt_file}", file=sys.stderr); return 2
@@ -171,8 +215,24 @@ def do_submit(args) -> int:
         json.dumps(meta, ensure_ascii=False, indent=2).encode("utf-8"),
         f"submit({args.competition}): {args.team}/{sub_id}",
     )
-    print(f"✓ 已提交：{args.team}/{sub_id}（task={args.task}）")
+    print(f"已上传：{args.team}/{sub_id}（task={args.task}），等待网关校验…")
+    decision = _wait_gateway_decision(gw, args.team, sub_id)
+
+    if decision is None:
+        # 网关裁决暂未回写（Actions 可能延迟）——已入队，让选手稍后用 --status 查。
+        print(f"⏳ 已入队，网关校验稍后完成。用 --status 查最终结果：")
+        print(f"   submit.py --status --repo {args.repo} --team {args.team} --token <PAT>")
+        return 0
+
+    if decision.get("status") == "rejected":
+        print(f"✗ 提交失败：{decision.get('error', '（无原因）')}")
+        _print_remaining(gw, args)
+        return 1
+
+    # queued / running / done —— 已被接受进入评测流程。
+    print(f"✓ 提交成功（{decision.get('status')}）：{args.team}/{sub_id}")
     print(f"  权重 sha256: {ckpt_sha[:16]}…  代码 sha256: {code_sha[:16]}…")
+    _print_remaining(gw, args)
     print(f"  查结果：submit.py --status --repo {args.repo} --team {args.team} --token <PAT>")
     return 0
 
@@ -194,6 +254,7 @@ def do_status(args) -> int:
         if st.get("error"):
             line += f"  ({st['error']})"
         print(line)
+    _print_remaining(gw, args)
     return 0
 
 
