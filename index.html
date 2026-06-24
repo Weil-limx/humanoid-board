@@ -167,10 +167,9 @@
       <p>提交唯一通道是命令行 <code>submit.py</code>：交<b>推理代码 + 策略权重</b>，带<b>队伍令牌</b>。分数由主办方评测算出。<b>提交次数不限</b>，榜单取该队历史最高分。</p>
     </div>
 
-    <p style="margin-top:0.2rem;color:var(--muted);font-size:0.95rem"><b style="color:var(--text)">准备工作</b>（一次性）：</p>
-    <div class="code"><span class="c"># 1) 从官方 Starter 仓库获取 submit.py；2) 安装依赖（仅需 requests）</span>
-pip install requests
-<span class="c"># &lt;网关仓库&gt; 与 &lt;队伍令牌&gt; 由主办方公告 / 私发给各队；&lt;队伍标识&gt; 用你的队名（英文/数字/连字符）</span></div>
+    <p style="margin-top:0.2rem;color:var(--muted);font-size:0.95rem"><b style="color:var(--text)">准备工作</b>：下载 <code>submit.py</code>（<b>纯 Python 3 标准库，无需 pip install 任何依赖</b>）。<code>&lt;网关仓库&gt;</code> 与 <code>&lt;队伍令牌&gt;</code> 由主办方公告 / 私发给各队；<code>&lt;队伍标识&gt;</code> 用你的队名（英文/数字/连字符）。</p>
+    <div class="code"><span class="c"># 下载提交工具（单文件，零依赖）</span>
+wget https://weil-limx.github.io/humanoid-board/submit.py</div>
 
     <div class="code"><span class="c"># 提交：推理代码 + 权重，带队伍令牌（若你的环境没有 python，请用 python3）</span>
 python3 submit.py <span class="a">--competition</span> humanoid <span class="a">--task</span> ATEC-TaskF-OliEdu \
