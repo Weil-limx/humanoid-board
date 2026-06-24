@@ -1,0 +1,58 @@
+{
+  "competition": "humanoid-locomotion",
+  "task": "ATEC-TaskF",
+  "generated_at": "2026-06-24 12:00:00",
+  "deadline": "2026-07-15T16:00:00Z",
+  "final_unlocked": false,
+  "dev": [
+    {
+      "rank": 1,
+      "team": "示例队 Alpha",
+      "total": 83.0,
+      "breakdown": {
+        "reach": 60, "cross_bonus": 10, "feet_land_bonus": 5, "crouch_bonus": 10,
+        "torso_penalty": -2.0, "leg_penalty": 0, "t_torso": 0.4, "t_leg": 0,
+        "finished": 1
+      },
+      "n_submissions": 3,
+      "last_submit": "2026-06-24 11:40:00"
+    },
+    {
+      "rank": 2,
+      "team": "示例队 Beta",
+      "total": 75.0,
+      "breakdown": {
+        "reach": 60, "cross_bonus": 10, "feet_land_bonus": 5, "crouch_bonus": 0,
+        "torso_penalty": 0, "leg_penalty": 0, "t_torso": 0, "t_leg": 0,
+        "finished": 1
+      },
+      "n_submissions": 4,
+      "last_submit": "2026-06-24 10:15:00"
+    },
+    {
+      "rank": 3,
+      "team": "示例队 Gamma",
+      "total": 60.0,
+      "breakdown": {
+        "reach": 60, "cross_bonus": 0, "feet_land_bonus": 0, "crouch_bonus": 0,
+        "torso_penalty": 0, "leg_penalty": 0, "t_torso": 0, "t_leg": 0,
+        "finished": 1
+      },
+      "n_submissions": 2,
+      "last_submit": "2026-06-24 09:05:00"
+    },
+    {
+      "rank": 4,
+      "team": "示例队 Delta",
+      "total": 38.0,
+      "breakdown": {
+        "reach": 60, "cross_bonus": 0, "feet_land_bonus": 0, "crouch_bonus": 0,
+        "torso_penalty": -2.0, "leg_penalty": -20.0, "t_torso": 0.0, "t_leg": 0.0,
+        "finished": 1
+      },
+      "n_submissions": 1,
+      "last_submit": "2026-06-24 08:30:00"
+    }
+  ],
+  "final": []
+}
