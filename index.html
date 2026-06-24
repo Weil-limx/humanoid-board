@@ -170,7 +170,7 @@
 python submit.py <span class="a">--competition</span> humanoid <span class="a">--task</span> ATEC-TaskF-OliEdu \
   <span class="a">--repo</span> &lt;网关仓库&gt; <span class="a">--team</span> &lt;队伍标识&gt; <span class="a">--token</span> &lt;队伍令牌&gt; \
   <span class="a">--ckpt-file</span> ./policy.pt <span class="a">--code-dir</span> ./solution</div>
-    <div class="code"><span class="c"># 查本队提交状态 / 分数 / 当日剩余次数</span>
+    <div class="code"><span class="c"># 查本队各次提交的状态与分数</span>
 python submit.py <span class="a">--status</span> <span class="a">--repo</span> &lt;网关仓库&gt; <span class="a">--team</span> &lt;队伍标识&gt; <span class="a">--token</span> &lt;队伍令牌&gt;</div>
     <p style="margin-top:1.4rem;color:var(--muted);font-size:0.95rem">
       流程：① 实现推理代码 + 训练权重；② <code>submit.py</code> 打包上传、网关校验令牌；
